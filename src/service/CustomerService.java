@@ -31,4 +31,17 @@ public class CustomerService {
         }
         return list;
     }
+    public Customer getCustomersBasedOnPhoneNum(String number) throws SQLException {
+        Customer customer = new Customer();
+        Connection conn = DbConfig.getConnection();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM customer where phone = " + number);
+        while (rs.next()) {
+          customer = new Customer(rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getInt("phone")
+            );
+        }
+        return customer;
+    }
 }

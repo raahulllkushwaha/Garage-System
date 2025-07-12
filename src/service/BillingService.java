@@ -11,9 +11,11 @@ public class BillingService {
     public InvoiceService invoiceService = new InvoiceService();
 
     public void createInvoice(int customerId, int vehicleId, List<Integer> serviceIds) throws SQLException {
+        String sids = "";
         for(int serviceId:serviceIds){
-            invoiceService.addInvoice(new Invoice(0, customerId, vehicleId, serviceId));
+            sids += serviceId;
         }
+            invoiceService.addInvoice(new Invoice(0, customerId, vehicleId,Integer.parseInt(sids)));
         System.out.println("Invoice generated successfully!");
     }
 

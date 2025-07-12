@@ -12,15 +12,19 @@ public class Main {
         BillingService service = new BillingService();
 
         while (true) {
-            System.out.println("1. Add Customers \n2. Generate Invoice \n3. Show Invoice \n4. Exit");
+            System.out.println("1. Add Customer with vehicle \n2. Generate Invoice \n3. Show Invoice \n4. Exit");
             int ch = sc.nextInt();
             switch (ch) {
                 case 1:
                     System.out.print("Customer name: ");
                     String name = sc.next();
                     System.out.print("Phone number: ");
-                    int phone = sc.nextInt();
-                    service.customerService.addCustomer(new Customer(0, name, phone));
+                    String phone = sc.next();
+                    System.out.println("Enter Vehicle number: ");
+                    String num = sc.next();
+                    System.out.println("Enter vehicle model: ");
+                    String model = sc.next();
+                    Customer customerBasedOnPhoneNum = service.customerService.getCustomersBasedOnPhoneNum(phone);
                     break;
 
                 case 2:
