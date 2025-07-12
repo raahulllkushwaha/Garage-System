@@ -10,7 +10,7 @@ import java.util.List;
 public class CustomerService {
     public void addCustomer(Customer customer) throws SQLException {
         Connection conn = DbConfig.getConnection();
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO customer (name, phone) VALUES (?, ?");
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO customer (name, phone) VALUES (?, ?)");
         ps.setString(1, customer.getName());
         ps.setInt(2, customer.getPhone());
         ps.executeUpdate();
