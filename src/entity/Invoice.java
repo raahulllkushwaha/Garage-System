@@ -1,57 +1,56 @@
 package entity;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 public class Invoice {
     private int id;
     private int customerId;
     private int vehicleId;
-    private int serviceId;
+    private List<Integer> serviceIds;
+    private double totalAmount;
+    private Timestamp createdDate;
 
-    public Invoice(int id, int customerId, int vehicleId, int serviceId) {
+    public Invoice() {}
+
+    public Invoice(int customerId, int vehicleId, List<Integer> serviceIds) {
+        this.customerId = customerId;
+        this.vehicleId = vehicleId;
+        this.serviceIds = serviceIds;
+    }
+
+    public Invoice(int id, int customerId, int vehicleId, List<Integer> serviceIds,
+                   double totalAmount, Timestamp createdDate) {
         this.id = id;
         this.customerId = customerId;
         this.vehicleId = vehicleId;
-        this.serviceId = serviceId;
+        this.serviceIds = serviceIds;
+        this.totalAmount = totalAmount;
+        this.createdDate = createdDate;
     }
 
-    public int getId() {
-        return id;
-    }
+    // Getters and Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public int getCustomerId() { return customerId; }
+    public void setCustomerId(int customerId) { this.customerId = customerId; }
 
-    public int getCustomerId() {
-        return customerId;
-    }
+    public int getVehicleId() { return vehicleId; }
+    public void setVehicleId(int vehicleId) { this.vehicleId = vehicleId; }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
+    public List<Integer> getServiceIds() { return serviceIds; }
+    public void setServiceIds(List<Integer> serviceIds) { this.serviceIds = serviceIds; }
 
-    public int getVehicleId() {
-        return vehicleId;
-    }
+    public double getTotalAmount() { return totalAmount; }
+    public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
-    }
-
-    public int getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(int serviceId) {
-        this.serviceId = serviceId;
-    }
+    public Timestamp getCreatedDate() { return createdDate; }
+    public void setCreatedDate(Timestamp createdDate) { this.createdDate = createdDate; }
 
     @Override
     public String toString() {
-        return "Invoice{" +
-                "id=" + id +
-                ", customerId=" + customerId +
-                ", vehicleId=" + vehicleId +
-                ", serviceId=" + serviceId +
-                '}';
+        return String.format("Invoice{id=%d, customerId=%d, vehicleId=%d, serviceIds=%s, totalAmount=%.2f, createdDate=%s}",
+                id, customerId, vehicleId, serviceIds, totalAmount, createdDate);
     }
 }
