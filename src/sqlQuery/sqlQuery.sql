@@ -1,47 +1,46 @@
-create database garage;
-use garage;
+CREATE DATABASE garage;
+USE garage;
 
-/* Customer table */
-create table customer(
-id int auto_increment primary key not null,
-name varchar(50),
-phone varchar(20)
+CREATE TABLE customer (
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL UNIQUE
 );
 
-// Vehicle table
-create table vehicle(
-id int auto_increment primary key not null,
-customer_id int,
-number_plate varchar(20),
-model varchar(10),
-foreign key (customer_id) references customer(id)
+CREATE TABLE vehicle (
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    customer_id INT NOT NULL,
+    number_plate VARCHAR(20) NOT NULL UNIQUE,
+    model VARCHAR(50) NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE CASCADE
 );
 
-//Service table
-create table services(
-id int auto_increment primary key,
-description varchar(50),
-cost double
+CREATE TABLE services (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    description VARCHAR(100) NOT NULL,
+    cost DECIMAL(10,2) NOT NULL
 );
 
-//Insert data in service table
-insert into services(description, cost) values
-('Oil Change', 1500),
-('Engine Repair', 5000),
-('Tyre Replacement', 2500),
-('Washing', 500);
+INSERT INTO services (description, cost) VALUES
+('Oil Change', 1500.00),
+('Engine Repair', 5000.00),
+('Tyre Replacement', 2500.00),
+('Car Washing', 500.00),
+('Brake Service', 2000.00),
+('AC Service', 1800.00);
 
-//Invoice table
-create table invoices(
-id int auto_increment primary key not null,
-customer_id int,
-vehicle_id int,
-service_id int,
-date timestamp default current_timestamp,
-foreign key (customer_id) references customer(id),
-foreign key (vehicle_id) references vehicle(id),
-foreign key (service_id) references services(id)
+CREATE TABLE invoices (
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    customer_id INT NOT NULL,
+    vehicle_id INT NOT NULL,
+    service_ids TEXT NOT NULL, -- Store comma-separated service IDs
+    total_amount DECIMAL(10,2) NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE CASCADE,
+    FOREIGN KEY (vehicle_id) REFERENCES vehicle(id) ON DELETE CASCADE
 );
 
-//Insert data into vehicle table
-insert into vehicle values(1, 1, "MP15UN9645", "2022");
+
+INSERT INTO customer (name, phone) VALUES ('John Doe', '9876543210');
+
+INSERT INTO vehicle (customer_id, number_plate, model) VALUES (1, 'MP15UN9645', 'Honda City 2022');
